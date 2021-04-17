@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SimpleOrder.API.Extensions;
 using SimpleOrder.Infra.Data;
 
 namespace SimpleOrder.API
@@ -29,6 +30,7 @@ namespace SimpleOrder.API
             services.AddIdentity<IdentityUser, IdentityRole>()
                          .AddEntityFrameworkStores<DatabaseContext>();
             services.AddControllers();
+            services.AddDbContexts(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
