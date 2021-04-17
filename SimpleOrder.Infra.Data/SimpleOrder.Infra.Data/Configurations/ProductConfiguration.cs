@@ -11,7 +11,7 @@ namespace SimpleOrder.Infra.Data.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name)
-                .IsRequired(false)
+                .IsRequired(true)
                 .HasMaxLength(100);            
 
             builder
@@ -21,11 +21,11 @@ namespace SimpleOrder.Infra.Data.Configurations
 
             builder.Property(x => x.Price)
                 .HasPrecision(18, 2)
-                .IsRequired(false);
+                .IsRequired(true);
 
             builder
                 .Property(x => x.CreationDate)
-                .IsRequired(false);
+                .IsRequired(true);
         }
     }
 }

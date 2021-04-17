@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using SimpleOrder.Infra.Data.Models;
 
 namespace SimpleOrder.Infra.Data
@@ -16,8 +17,19 @@ namespace SimpleOrder.Infra.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public class GlobalContextDesignFactory : IDesignTimeDbContextFactory<DatabaseContext>
+        {
+            public DatabaseContext CreateDbContext(string[] args)
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+                optionsBuilder.UseSqlServer("Server=.\\sqlexpress;Database=simpleorder;Trusted_Connection=True;");
+
+                return new DatabaseContext(optionsBuilder.Options);
+            }
         }
 
     }
