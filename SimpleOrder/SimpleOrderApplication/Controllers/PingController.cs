@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace SimpleOrder.API.Controllers
 {
@@ -21,7 +22,8 @@ namespace SimpleOrder.API.Controllers
             _logger.LogDebug("API is running properly");
             return Ok(new {
                 success = true,
-                message = "API is running properly"
+                message = "API is running properly",
+                request = DateTime.UtcNow
             });
         }
     }
