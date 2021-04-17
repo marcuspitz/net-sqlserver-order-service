@@ -1,0 +1,10 @@
+.vs
+.vs
+*.csproj.user
+
+.vscode
+bin/
+obj/
+TestResults/
+*.user
+serviceDependencies*.json
