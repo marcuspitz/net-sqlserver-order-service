@@ -9,6 +9,7 @@ namespace SimpleOrder.API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthAppService, AuthAppService>();
+            services.AddScoped<IUserAppService, UserAppService>();
 
             return services;
         }
