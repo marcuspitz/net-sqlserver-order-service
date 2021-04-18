@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using SimpleOrder.Application.Services.Interfaces;
 using SimpleOrder.Application.Settings;
 using SimpleOrder.Application.ViewModels;
+using SimpleOrder.Infra.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,11 +18,11 @@ namespace SimpleOrder.Application.Services
 {
     public class AuthAppService : IAuthAppService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly TokenSettings _tokenSettings;
         private readonly ILogger<AuthAppService> _logger;
 
-        public AuthAppService(UserManager<IdentityUser> userManager, IOptionsSnapshot<TokenSettings> tokenSettings, ILogger<AuthAppService> logger)
+        public AuthAppService(UserManager<ApplicationUser> userManager, IOptionsSnapshot<TokenSettings> tokenSettings, ILogger<AuthAppService> logger)
         {
             _userManager = userManager;
             _tokenSettings = tokenSettings.Value;
@@ -61,12 +62,13 @@ namespace SimpleOrder.Application.Services
         {
             try
             {
-                var user = new IdentityUser()
+                var user = new ApplicationUser()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    NormalizedUserName = request.DisplayName,
+                    DisplayName = request.DisplayName,
                     UserName = request.UserName,
-                    Email = request.Email
+                    Email = request.Email,
+                    CreationDate = DateTime.UtcNow
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);
@@ -99,7 +101,7 @@ namespace SimpleOrder.Application.Services
             };
         }
 
-        private string GenerateJwt(IdentityUser user)
+        private string GenerateJwt(ApplicationUser user)
         {
             var claims = new List<Claim>();
 

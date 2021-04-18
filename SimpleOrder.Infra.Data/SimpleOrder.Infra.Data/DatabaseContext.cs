@@ -5,7 +5,7 @@ using SimpleOrder.Infra.Data.Models;
 
 namespace SimpleOrder.Infra.Data
 {
-    public class DatabaseContext : IdentityDbContext
+    public class DatabaseContext : IdentityDbContext<ApplicationUser>
     {
         public static readonly string MIGRATIONS_HISTORY_TABLE = "_EFMigrationHistory";
         public DbSet<Product> Product { get; set; }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SimpleOrder.Application.Services.Interfaces;
 using SimpleOrder.Application.ViewModels;
+using SimpleOrder.Infra.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace SimpleOrder.Application.Services
     public class UserAppService : IUserAppService
     {
         private readonly ILogger<UserAppService> _logger;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserAppService(ILogger<UserAppService> logger, UserManager<IdentityUser> userManager)
+        public UserAppService(ILogger<UserAppService> logger, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _userManager = userManager;
@@ -24,7 +25,7 @@ namespace SimpleOrder.Application.Services
         {
             try
             {
-                IQueryable<IdentityUser> query = _userManager.Users;
+                IQueryable<ApplicationUser> query = _userManager.Users;
                 if (!String.IsNullOrEmpty(filters.UserName))
                 {
                     query = query.Where(u => u.UserName.ToLower() == filters.UserName.ToLower());
@@ -41,8 +42,9 @@ namespace SimpleOrder.Application.Services
                 {
                     Id = u.Id,
                     Email = u.Email,
-                    DisplayName = u.NormalizedUserName,
-                    UserName = u.UserName                    
+                    DisplayName = u.DisplayName,
+                    UserName = u.UserName,
+                    CreationDate = u.CreationDate
                 });
             }
             catch (Exception e)

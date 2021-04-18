@@ -3,8 +3,9 @@ using System;
 
 namespace SimpleOrder.Infra.Data.Models
 {
-    public class AppUser : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
+        public string DisplayName { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }
