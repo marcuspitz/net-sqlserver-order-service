@@ -34,6 +34,7 @@ namespace SimpleOrder.API
             services.AddControllers();
             services.Configure<TokenSettings>(Configuration.GetSection("TokenSettings"));
             services.AddApplicationServices();
+            services.AddApplicationRepositories();
             services.AddDbContexts(Configuration);
         }
 

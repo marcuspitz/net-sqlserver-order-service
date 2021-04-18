@@ -9,6 +9,7 @@ namespace SimpleOrder.Infra.Data
     {
         public static readonly string MIGRATIONS_HISTORY_TABLE = "_EFMigrationHistory";
         public DbSet<Product> Product { get; set; }
+        public DbSet<Order> Order { get; set; }
 
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
