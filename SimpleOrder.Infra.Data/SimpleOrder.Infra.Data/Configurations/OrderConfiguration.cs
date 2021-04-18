@@ -12,6 +12,9 @@ namespace SimpleOrder.Infra.Data.Configurations
 
             builder.Property(x => x.CreationDate)
                 .IsRequired(true);
+            
+            builder.Property(x => x.UserId)
+                .IsRequired(true);
 
             var navigation = builder.Metadata.FindNavigation(nameof(Order.Products));
             navigation.SetPropertyAccessMode(PropertyAccessMode.Field);

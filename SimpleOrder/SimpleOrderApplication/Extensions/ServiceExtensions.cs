@@ -13,6 +13,7 @@ namespace SimpleOrder.API.Extensions
             services.AddScoped<IAuthAppService, AuthAppService>();
             services.AddScoped<IUserAppService, UserAppService>();
             services.AddScoped<IProductAppService, ProductAppService>();
+            services.AddScoped<IOrderAppService, OrderAppService>();
 
             return services;
         }
@@ -20,6 +21,7 @@ namespace SimpleOrder.API.Extensions
         public static IServiceCollection AddApplicationRepositories(this IServiceCollection services)
         {
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
 
             return services;
         }

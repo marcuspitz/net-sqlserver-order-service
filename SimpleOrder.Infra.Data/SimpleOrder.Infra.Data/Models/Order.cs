@@ -7,12 +7,20 @@ namespace SimpleOrder.Infra.Data.Models
     public class Order
     {
         public string Id { get; set; }
+        public string UserId { get; set; }
         private readonly List<OrderProduct> _products;
         public IReadOnlyCollection<OrderProduct> Products => _products;
         public DateTime CreationDate { get; set; }
 
         protected Order() 
         {
+            _products = new List<OrderProduct>();
+        }
+
+        public Order(string userId)
+        {
+            Id = Guid.NewGuid().ToString();
+            UserId = userId;
             _products = new List<OrderProduct>();
         }
 
