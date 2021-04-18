@@ -32,7 +32,15 @@ namespace SimpleOrder.Application.Services
                 }
                 if (!String.IsNullOrEmpty(filters.DisplayName))
                 {
-                    query = query.Where(u => u.NormalizedUserName.ToLower().Contains(filters.DisplayName.ToLower()));
+                    query = query.Where(u => u.DisplayName.ToLower().Contains(filters.DisplayName.ToLower()));
+                }
+                if (filters.StartDate.HasValue)
+                {
+                    query = query.Where(u => u.CreationDate >= filters.StartDate.Value);
+                }
+                if (filters.EndDate.HasValue)
+                {
+                    query = query.Where(u => u.CreationDate <= filters.EndDate.Value);
                 }
                 if (!String.IsNullOrEmpty(filters.Email))
                 {
