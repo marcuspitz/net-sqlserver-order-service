@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SimpleOrder.API.Extensions;
+using SimpleOrder.Application.Settings;
 using SimpleOrder.Infra.Data;
 
 namespace SimpleOrder.API
@@ -27,9 +28,18 @@ namespace SimpleOrder.API
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                         .AddEntityFrameworkStores<DatabaseContext>();
+            var tokenSettings = Configuration.GetSection("TokenSettings").Get<TokenSettings>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = true;
+            })
+                .AddEntityFrameworkStores<DatabaseContext>()
+                .AddDefaultTokenProviders();
+            services.AddAuth(tokenSettings);            
             services.AddControllers();
+            services.Configure<TokenSettings>(Configuration.GetSection("TokenSettings"));
+            services.AddApplicationServices();
             services.AddDbContexts(Configuration);
         }
 
@@ -44,9 +54,7 @@ namespace SimpleOrder.API
 
             app.UseRouting();
 
-            app.UseAuthentication();
-
-            app.UseAuthorization();
+            app.AppUseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
