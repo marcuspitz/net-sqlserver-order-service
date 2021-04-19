@@ -14,7 +14,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=M1sr0n$%*pA12@" -p 1435:1433 --nam
 ```
 
 ## Configs
-appsettings.json describe all required configurations such as database
+appsettings.json describes all required configurations such as database
 
 # Routes
 ## Auth
